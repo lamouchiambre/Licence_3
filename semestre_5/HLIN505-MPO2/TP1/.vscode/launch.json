@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Adherent",
+            "request": "launch",
+            "mainClass": "cercleSportif.Adherent",
+            "projectName": "TP1_ce3e9b20"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - HeureSimple",
             "request": "launch",
             "mainClass": "cercleSportif.HeureSimple",

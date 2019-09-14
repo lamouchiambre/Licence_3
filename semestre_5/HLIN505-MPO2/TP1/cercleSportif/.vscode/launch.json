@@ -6,6 +6,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Adherent",
+            "request": "launch",
+            "mainClass": "Adherent"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Lieu",
             "request": "launch",
             "mainClass": "cercleSportif.Lieu"
