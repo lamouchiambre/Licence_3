@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Creneau2",
+            "request": "launch",
+            "mainClass": "cercleSportif.Creneau2",
+            "projectName": "TP1_ce3e9b20"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Adherent",
             "request": "launch",
             "mainClass": "Adherent",
