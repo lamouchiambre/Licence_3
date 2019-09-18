@@ -1,0 +1,35 @@
+body{
+    background-color: aquamarine;
+}
+header{
+/*    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    border-left: none;
+    border-right: none;
+    border-top: none;*/
+    
+    border-bottom: solid;
+    text-align: center;
+    border-width:1px;
+    /*position: fixed;*/
+    }
+h2, h3{
+    color: rgb(255, 0, 0);
+}
+nav{
+    /*top: 100px;*/
+    position: absolute;
+    margin: auto;
+}
+#main{
+    position: relative;
+    /*max-width: 70%;*/
+    left: 150px;
+}
+footer{
+    text-align: center;
+    border-top: solid;
+    border-width:1px;
+    /*position: fixed;*/
+    }
