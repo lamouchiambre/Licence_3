@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - FicText1",
+            "request": "launch",
+            "mainClass": "FicText1",
+            "projectName": "TP3"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - FicText2",
             "request": "launch",
             "mainClass": "FicText2",
