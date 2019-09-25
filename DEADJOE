@@ -1,0 +1,17 @@
+
+*** These modified files were found in JOE when it aborted on Tue Sep 24 14:51:16 2019
+*** JOE was aborted because the terminal closed
+
+*** Fichier '(Sans nom)'
+/home/e20160018322/.gitconfig
+
+*** Fichier '/home/e20160018322/.gitconfig'
+# Ceci est le fichier de configuration personnel de Git.
+[user]
+# Veuillez adapter et décommenter les lignes suivantes :
+#	name = ambre.lamouchi@etu.umontpellier.fr
+#	email = ambre.lamouchi@etu.umontpellier.fr@i21.fdsetu.infra.umontpellier.fr
+
+*** Fichier '* Startup Log *'
+Traitement de '/etc/joe/editorrc'...Traitement de '/etc/joe/ftyperc'...Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc
