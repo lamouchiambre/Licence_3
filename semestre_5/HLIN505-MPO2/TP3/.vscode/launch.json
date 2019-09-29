@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Exo3",
+            "request": "launch",
+            "mainClass": "Exo3",
+            "projectName": "tp3"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - FicText1",
             "request": "launch",
             "mainClass": "FicText1",
