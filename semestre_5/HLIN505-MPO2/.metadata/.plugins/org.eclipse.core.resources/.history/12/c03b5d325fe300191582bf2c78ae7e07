@@ -1,0 +1,7 @@
+package TP4;
+
+import java.io.File;
+
+public abstract class AbstractAudoElement implements ElementAudio {
+	
+}

@@ -1,0 +1,8 @@
+
+public interface ElementAudio {
+	public int getDuree();
+	public abstract String getTitre();
+	public String getFichier();
+	
+	public abstract int getTaille(); 
+}
