@@ -5,6 +5,32 @@
 
 using namespace std;
 
+bool recherche(vector<int> tab, int elem){
+  for(int i =0; i < tab.size();i++){
+    if( tab[i] == elem)
+      return true;
+  }
+  return false;
+}
+
+
+void voisinsRandom(int n, int m, vector<int>voisins[]){
+  //assert 
+  
+  srand(time(NULL));
+  int i=0;
+  while(i<m){
+    int x=rand()%n;
+    int y=rand()%n;
+    if( x!=y){
+      if( !(recherche(voisins[x],y)) and !(recherche(voisins[y],x))){
+    voisins[x].push_back(y);
+    voisins[y].push_back(x);
+    i++;
+      }
+    }
+  }
+}
 int
 main()
 {

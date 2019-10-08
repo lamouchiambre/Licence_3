@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <stack>
 //#include "affichage.cc"
 
 using namespace std;
@@ -26,6 +27,22 @@ void distance(int n, int m, coord point[], int edge[][3]){
       edge[k][0] = i;
       edge[k][1] = j;
       edge[k][2] = (point[i].abs - point[j].abs)*(point[i].abs - point[j].abs) + (point[j].ord - point[i].ord)*(point[j].ord - point[i].ord); 
+      k++;
+    }
+    
+  }
+  
+}
+
+void distanceM(int n, int m, coord point[], int edge[][3]){
+  int k = 0;
+  for (size_t i = 0; i < n; i++)
+  {
+    for (size_t j = i + 1; j < n; j++)
+    {
+      edge[k][0] = i;
+      edge[k][1] = j;
+      edge[k][2] = abs(point[i].abs - point[j].abs)+ abs(point[j].ord - point[i].ord); 
       k++;
     }
     
@@ -111,6 +128,49 @@ void kruskal(int n, int m, int edge[][3], int arbre[][2]){
   }
 
 }
+
+int compare(const void * a,const void * b)
+{
+  return ((int*)a)[2] - ((int*)b)[2];
+}
+
+void tri(int m, int edge[][3])
+{
+  qsort(edge,m,sizeof(edge[0]),compare);
+}
+
+void KruskalOpti(int n, int m, int edge[][3], int arbre[][2]) {
+    //tri_rapide(edge, m);
+    tri(m, edge);
+    int h = 0;
+    int t[n] = {0}; // taille de comp[x]
+    stack<int> L[n]; // liste des sommets de comp[x], gérée par une pile
+    int comp[n-1];
+    for (int i = 0; i < n; i++) {
+        comp[i] = i;
+        L[comp[i]].push(i);
+        t[comp[i]] = 1;
+    }
+    for (int i = 0; i < m; i++) {
+        int x = edge[i][0];
+        int y = edge[i][1];
+        if (comp[x] != comp[y]) {
+          arbre[h][0] = x;
+          arbre[h][1] = y;
+          h++;
+            if (t[comp[x]] > t[comp[y]]) {
+                swap(x, y);
+            }
+            int aux = comp[x];
+            t[comp[y]] += t[aux];
+            while (!L[aux].empty()) {
+                comp[L[aux].top()] = comp[y];
+                L[comp[y]].push(L[aux].top());
+                L[aux].pop();
+            }
+        }
+    }
+}
 void affichageGraphique(int n, coord point[], int arbre[][2]){
   ofstream output;                           
   output.open("Exemple.ps",ios::out);
@@ -149,7 +209,7 @@ main()
   int edge[m][3];    // Les paires de points et le carre de leur longueur.
   int arbre[n-1][2]; // Les aretes de l'arbre de Kruskal. 
   pointRandom(n, point);
-  distance(n, m, point, edge);
+  distanceM(n, m, point, edge);
   for (size_t i = 0; i < n; i++)
   {
     cout <<'['<< point[i].abs << " ," << point[i].ord << ']' << endl; 
@@ -162,7 +222,8 @@ main()
   tri_rapide(edge, m);
   printEdge(m ,edge);
 
-  kruskal(n, m, edge, arbre);
+  //kruskal(n, m, edge, arbre);
+  KruskalOpti(n, m, edge, arbre);
   cout << "arbre:" << endl;
   printAbre(n-1, arbre);
   //affichageGraphique(n, point, arbre);
