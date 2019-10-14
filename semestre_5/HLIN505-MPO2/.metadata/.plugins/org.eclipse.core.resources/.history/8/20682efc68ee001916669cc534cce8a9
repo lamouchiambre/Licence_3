@@ -1,0 +1,25 @@
+
+public class Tableau <G extends Comparable<G>> {
+	private G T[];
+		public Tableau(G T[]){
+			this.T = T;
+		}
+		public void triBulles(){
+			int i = T.length -2;
+			boolean ech = true;
+			while(i >= 2 && ech){
+				ech = false;
+				for (int j = 0; j <= i; j++){
+					if(T[j].compareTo(T[j+1])>0){
+						G aux = T[j];
+						T[j] = T[j+1];
+						T[j+1] = aux;
+						ech = true;
+					}
+				}
+			i--;
+			}
+		}
+		
+	
+}
