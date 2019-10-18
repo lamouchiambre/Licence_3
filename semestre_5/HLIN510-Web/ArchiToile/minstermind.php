@@ -35,12 +35,7 @@
                 //echo $essai[$i];
             }
         }  
-        public function test($tab){
-            $this->getEssai($tab);
-            $tmpEssai = $this->$essai; 
-            $tmpCode = $this->$code;
-            bienPlacer($tmpEssai);
-        }
+        
         public function bienPlacer($tab){
             $tmp = $code;
             $nb = 0;
@@ -51,11 +46,22 @@
                     $code[i]=-1;
                 }
             }
-            echo $nb;
+            //echo $nb;
         } 
+        public function test($tab){
+            $tmp1;
+            $tmp1 = $this->getNbCoup();
+            $this->getEssai($tab);
+            //$essai = 1;
+            $tmpEssai = $this->essai; 
+            echo $this->nb_coup;
+            echo $tmp1;
+            //$tmpCode = $this->$code;
+            $this->bienPlacer($tmpEssai);
+        }
         public function getNbCoup(){
-            $nb_coup = 1;
-            return $nb_coup;
+            $this->nb_coup = 1;
+            return $this->nb_coup;
         }
         
         public function augNb_coup(){
@@ -66,7 +72,7 @@
     $m1 = new Mastermind;
     $m1->genereCode();
     //echo $m1->getNbCoup();
-    echo $m1->getNbCoup();
+    //echo $m1->getNbCoup();
     $tab = "1234";
     $m1->test($tab);
     
