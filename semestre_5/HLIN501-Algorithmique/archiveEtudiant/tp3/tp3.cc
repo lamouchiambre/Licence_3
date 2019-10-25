@@ -94,7 +94,7 @@ void ecrtureNiveau(int n, int niveau[]){
   
 }
 void parcoursProfondeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]){
-  int dv[n];
+  int dv[n]; int r = 2;
   for(int i = 0; i < n ; i++){
 
   }
