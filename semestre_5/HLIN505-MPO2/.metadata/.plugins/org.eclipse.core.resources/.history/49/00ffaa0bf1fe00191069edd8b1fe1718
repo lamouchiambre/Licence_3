@@ -1,0 +1,17 @@
+package tpStream;
+
+import java.awt.Color;
+
+public class TriColor {
+	private Color red;
+	private Color yellow;
+	private Color green;
+	
+	public TriColor(){
+		red = Color.red;
+		yellow = Color.yellow;
+		green = Color.green;
+		
+	}
+
+}

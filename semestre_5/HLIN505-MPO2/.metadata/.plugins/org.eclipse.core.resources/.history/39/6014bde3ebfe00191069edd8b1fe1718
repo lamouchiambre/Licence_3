@@ -1,0 +1,5 @@
+package tpStream;
+import 
+public interface Iterable<E> {
+
+}
