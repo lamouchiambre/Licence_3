@@ -14,8 +14,8 @@ typedef struct coord{int abs; int ord;} coord;
 //void pointRandom(int n,coord point[]);
 float distance(coord p1,coord p2);
 //void voisins(int n,int dmax,coord point[],vector<int> voisin[],int &m);
-bool existe(int n,int dis[],bool traite[],int &x);
-void dijkstra(int n,vector<int> voisin[],coord point[],int pere[]);
+//bool existe(int n,int dis[],bool traite[],int &x);
+
 int construireArbre(int n,int arbre[][2],int pere[]);
 
 bool recherche(vector<int> tab, int elem){
@@ -55,7 +55,7 @@ void voisins(int n,int dmax,coord point[],vector<int> voisin[],int &m){
   while(x<n){
     //cout << "je rentre dans le while " << endl;
     for( int y = 0; y < n; y++){
-      cout << x << ", " << y <<" d = " << distanceE(point[x], point[y])<<endl;
+      //cout << x << ", " << y <<" d = " << distanceE(point[x], point[y])<<endl;
       if( x != y && distanceE(point[x], point[y]) <= dmax ){
         //cout << "je suis dans le premier if " << endl;
         
@@ -93,7 +93,16 @@ void voisins2arete(int n,vector<int>voisin[],int arete[][2]){
     }
   }
 }
-
+// void voisins2arete(int n,vector<int>voisins[],int arete[][2]){
+//   int m=0;
+//   for( int i =0; i<n;i++){
+//     for (int j=0; j<voisins[i].size();j++){
+//       arete[m][0]=i;
+//       arete[m][1]=voisins[i][j];
+//       m++;
+//     }
+//   }
+// }
 void printArrete(int M, int arete[][2]){
   for(int i = 0; i < M; i++){
       cout << '[' << arete[i][0] << ", " << arete[i][1] << ']' << endl;
@@ -115,7 +124,7 @@ void affichageGraphique(int n,int m,coord point[],int arete[][2]){
       output << endl;
     }
   output << endl;
-  for(int i=0;i<n-1;i++)
+  for(int i=0;i<m;i++)
    {
      output << point[arete[i][0]].abs << " " << point[arete[i][0]].ord 
 	    << " moveto" << endl;
@@ -126,6 +135,50 @@ void affichageGraphique(int n,int m,coord point[],int arete[][2]){
    }
   output << "showpage";
   output << endl;
+}
+bool existe(int n,int dis[],bool traite[],int &x){
+  bool rep=false;
+  int dmin=-1;
+  for(int i=0;i<n;i++){
+    if(traite[i]==false){
+      rep=true;
+      if(dmin == -1 || dis[i]<dmin){
+    x=i;
+    dmin=dis[i];
+      }
+    }   
+  }
+  return rep;
+}
+
+void dijkstra(int n,vector<int> voisin[],coord point[],int pere[]){
+  int dis[n];
+  bool traite[n];
+  int x = 0;
+  for(int k = 0; k < n; k++){
+    dis[k] = -1;
+    traite[k] = false;
+  }
+  pere[0] =  0;
+  dis[0] = 0;
+  while( existe( n, dis, traite, x)){
+    traite[x] = true;
+    for(int y: voisin[x]){
+      if(!(traite[y]) && dis[y] > dis[x] + distanceE(point[y], point[x]) ){
+        dis[y] = dis[x] + distanceE(point[y], point[x]);
+        pere[y] = x;
+      }
+    }
+  }
+}
+
+void arbre(int n, int pere, int arbre[][2]){
+  for( int i = 0; i < n; i++){
+    if(i != pere[i]){
+      arbre[i][1] = pere[i];
+      arbre[i][0] = i;
+    }
+  }
 }
 
 int
@@ -145,12 +198,11 @@ main()
 
   pointRandom(n, point);
   voisins(n, dmax, point,voisin,m);
-  print_voisins(n, voisin);
+  //print_voisins(n, voisin);
   int arete[m][2];
   voisins2arete(n, voisin, arete);
-  printArrete(m, arete);
-  //affichageGraphique(n, m, point, arete);
-
+  //printArrete(m, arete);
+  affichageGraphique(n, m, point, arete);
 
   return EXIT_SUCCESS;
 }
