@@ -1,5 +1,0 @@
-package tpStream;
-
-public interface Iterator {
-
-}

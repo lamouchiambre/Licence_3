@@ -1,0 +1,11 @@
+package tpStream;
+
+public class Etudiant {
+	private int age;
+	private String nom;
+	private enum Modalite {
+		eCandidat,
+		CampusFrance,
+		autre
+	}
+}
