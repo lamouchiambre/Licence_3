@@ -1,3 +1,79 @@
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const int INF = 9999;
+const int N = 41;
+
+void floydWarshall(int longueur[][N],int dist[][N],int chemin[][N]){
+    for(int i = 0; i < N; i++){
+    
+      for(int j = 0; j < N; j++){
+        if (longueur[i][j] != INF){
+          dist[i][j] = longueur[i][j];
+           cout<<"dist["<<i<<"]["<<j<<"] ="<< longueur[i][j]<<endl;
+          chemin[i][j] = j;
+        }
+        else{
+          dist[i][j] = INF;
+          chemin[i][j] = 0;
+        }
+      }
+      dist[i][i] = 0;
+      chemin[i][i] = i;
+    }
+      for(int k = 0; k < N; k++){
+        for(int i = 0; i < N ; i++){
+          for(int j = 0; j < N; j++){
+            if(dist[i][j]> dist[i][k]+ dist[k][j]){
+              dist[i][j] = dist[i][k]+ dist[k][j];
+              chemin[i][j] = chemin[i][k];
+            }
+          }
+        }
+      }
+      for(int i = 0; i < N; i++ ){
+        if(dist[i][i] < 0){
+          //cout<<"Il exsite un clycle oritente de poin <0"<<endl;
+        }
+      }
+    
+  }
+void afficheDist(int dist[][N]){
+  for(int i = 0; i < N ; i++){
+    cout<<"---------------------"<<endl;
+    for(int j = 0; j < N; j++){
+      cout << "| ";
+      if(dist[i][j]>=0){
+      cout <<" ";  
+      }
+      cout << dist[i][j];
+    }
+    cout << "|" << endl;
+  }
+  cout<<"---------------------"<<endl;
+}
+
+void affichage(int dist[][N],int chemin[][N]);
+void itineraire(int i,int j,int chemin[][N], char villes[][20]){
+  cout << "Entrer le depart "<< villes[i] << endl;
+  cout << "Entrer la destination " << villes[j] << endl;
+  cout << "L'itineraire est ";
+  cout << villes[i];
+  int a = i; 
+  int b = chemin[i][j];
+  while ( b != a){
+    cout <<" "<< villes[b];
+    a = b;
+    b = chemin[a][j]; 
+  }
+
+}
+int main(){
+
+
 char villes[41][20]={"Amiens", "Angouleme", "Avignon", "Bayonne", "Bilbao", "Bordeaux", "Bourges", "Brest", "Brive", "Bruxelles", "Caen", "Cahors", "Clermont-Ferrand", "Dijon", "Geneve", "Grenoble", "Lille", "Limoges", "Luxembourg", "Lyon", "Marseille", "Millau", "Montpellier", "Mulhouse", "Nancy", "Nantes", "Nice", "Orleans", "Paris", "Perpignan", "Poitiers", "Reims", "Rennes", "Rodez", "Rouen", "Saint-Etienne", "Strasbourg", "Toulouse", "Tours", "Troyes", "Valence"};
 
 int position[41][2]={{282,84},{180,334},{412,443},{140,455},{80,480},{165,389},{304,253},{14,150},{249,365},{380,15},{182,117},{258,412},{322,322},{408,231},{470,287},{464,359},{324,32},{242,332},{470,60},{405,306},{433,480},{339,440},{365,461},{497,208},{453,148},{116,233},{515,460},{277,194},{296,146},{329,505},{208,271},{369,119},{120,175},{330,410},{228,101},{383,339},{508,152},{227,466},{220,230},{363,179},{408,377}};
@@ -5,7 +81,7 @@ int position[41][2]={{282,84},{180,334},{412,443},{140,455},{80,480},{165,389},{
 int longueur[41][41];
 for(int i=0;i<41;i++){
   for(int j=0;j<41;j++){
-    longueur[i][j]=inf;
+    longueur[i][j]=INF;
   }
   longueur[i][i]=0;
  }
@@ -123,4 +199,15 @@ longueur[39][6]=240; longueur[39][13]=180;
 longueur[40][2]=140; longueur[40][15]=90; longueur[40][35]=120; 
 longueur[40][19]=150; longueur[40][33]=225; longueur[40][22]=200;
 
+  int dist[N][N];                        //Le tableau des distances.
+  int chemin[N][N];                      //Le tableau de la premiere etape du chemin de i a j.
+  floydWarshall(longueur,dist,chemin);
+  cout<< "tableau dist" <<endl;
+  //afficheDist(dist);
+  //cout<<"tableau chemin"<< endl;
+  //afficheDist(chemin);
+  //affichage(dist,chemin);  
+  itineraire(4, 2, chemin, villes);
+  return EXIT_SUCCESS;
 
+}
