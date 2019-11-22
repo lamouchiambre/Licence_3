@@ -179,6 +179,7 @@ main()
   fermetureTransitive2(arc, fermeture);
   afficheDist(fermeture);
   compFortConnexe(6, fermeture);
+  cout << "fin " << endl;
   
   return EXIT_SUCCESS;
 }
