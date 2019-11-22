@@ -92,7 +92,6 @@ void fermetureTransitive(int arc[][M], int fermeture[][M]){
       for(int j = 0; j < M; j++){
         fermeture[i][j] = arc[i][j];
       }
-      fermeture[i][i] = 1;
   }
   for(int k = 0; k < M; k++){
     for(int i = 0; i < M; i++){
@@ -104,16 +103,50 @@ void fermetureTransitive(int arc[][M], int fermeture[][M]){
     }
   }
 }
-void compFortConnexe(int n, int fermeture[][M]){
-  //vector< >
-  for(int i = 0; i < M, i++){
-    for(int j = 0; j < M, j++){
-      if(fermeture[i][j] + fermeture[j][i] = 2 ){
 
+void fermetureTransitive2(int arc[][M], int fermeture[][M]){
+  
+  for(int i=0;i<M;i++){
+    for(int j=0;j<M;j++){
+      if(arc[i][j]==1)
+    fermeture[i][j]=1;
+      else
+    fermeture[i][j]=0;
+    }
+    //fermeture[i][i]=i;
+  }
+      
+  for(int k=0;k<M;k++)
+    for(int i=0;i<M;i++)
+      for(int j=0;j<M;j++)
+    if(fermeture[i][k]+fermeture[k][j]==2){
+      fermeture[i][j]=1;
+    }
+  }
+
+
+void compFortConnexe(int n, int fermeture[][M]){
+  int comp[M]; int aux;
+  for(int i = 0; i < M; i++){
+    comp[i] = i;
+  }
+  for(int i = 0; i < M; i++){
+    for(int j = i; j < M; j++){
+      if(fermeture[i][j] + fermeture[j][i] == 2 ){
+        aux = i;
+        for(int k = 0; k < M; k++){
+          if(comp[k] == aux){
+            comp[k] = comp[j];
+          }
+        }
       }
     }
   }
+  for(int i = 0; i < M; i++){
+    cout << "comp[" << i << "] = " << comp[i] <<endl;
+  }
 }
+
 int
 main()
 {
@@ -123,7 +156,8 @@ main()
 		      {INF,INF,0,2,INF},
 		      {INF,-3,INF,0,2},
 		      {2,INF,INF,INF,0}};
-  int arc[6][6] = {{0,0,0,1,0,1},
+  int arc[6][6] = {
+                  {0,0,0,1,0,1},
                   {1,0,1,1,0,0},
                   {0,0,0,1,0,0},
                   {0,0,0,0,1,1},
@@ -142,5 +176,9 @@ main()
   int fermeture[M][M];
   fermetureTransitive(arc, fermeture);
   afficheDist(fermeture);
+  fermetureTransitive2(arc, fermeture);
+  afficheDist(fermeture);
+  compFortConnexe(6, fermeture);
+  
   return EXIT_SUCCESS;
 }

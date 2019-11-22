@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <queue>
+#include <stack> 
 
 using namespace std;
 
@@ -93,12 +94,52 @@ void ecrtureNiveau(int n, int niveau[]){
   cout << "il y a " << nbComp0 -1 <<"qui ne son pas dans la composante de 0"<<endl;
   
 }
-void parcoursProfondeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]){
-  int dv[n]; int r = 2;
-  for(int i = 0; i < n ; i++){
+void parcoursProfondeur(int n,vector<int> voisins[], int niveau[], int pere[]){
+  stack<int> pile;
+  
+  //file.empty()
+  //file.push(variable)
+  //file.front() //Recupère le premier
+  //file.pop() supprime le 1ier
+  
+  
+  int dejaVu[n]={0};
+  int debut[n]={-1};
+  int fin[n]={-1};
+  
+  
+  dejaVu[0]=1;
+  niveau[0]=0;
+  pile.push(0);
 
+  debut[0]=1;
+
+  int t=2;
+
+  while(!(pile.empty())){
+    int sommetCourant = pile.top();
+   
+    if (0==voisins[sommetCourant].size()){
+      fin[sommetCourant]=t;
+      t++;
+      pile.pop(); 
+    }
+    else{
+      int y=voisins[sommetCourant][0];
+      voisins[sommetCourant].erase( voisins[sommetCourant].begin());
+      if(dejaVu[y]==0){
+    dejaVu[y]=1;
+    pile.push(y);
+    debut[y]=t;
+    t++;
+    pere[y]=sommetCourant;
+    niveau[y]=niveau[pere[y]]+1;
+      }
+    }
   }
 }
+
+
 int
 main()
 {

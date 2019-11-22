@@ -12,11 +12,11 @@ const int M=(N*(N-1))/2;
 typedef struct coord{int abs; int ord;} coord;
 
 //void pointRandom(int n,coord point[]);
-float distance(coord p1,coord p2);
+//float distance(coord p1,coord p2);
 //void voisins(int n,int dmax,coord point[],vector<int> voisin[],int &m);
 //bool existe(int n,int dis[],bool traite[],int &x);
 
-int construireArbre(int n,int arbre[][2],int pere[]);
+//int construireArbre(int n,int arbre[][2],int pere[]);
 
 bool recherche(vector<int> tab, int elem){
   for(int i =0; i < tab.size();i++){
@@ -34,6 +34,7 @@ bool recherche(int tab[], int n, int elem){
 }
 
 void pointRandom(int n, coord point[]){
+  srand(time(NULL));
   for (size_t i = 0; i < n; i++)
   {
     point[i].abs = rand() % 612;
@@ -109,9 +110,9 @@ void printArrete(int M, int arete[][2]){
   }
 }
 
-void affichageGraphique(int n,int m,coord point[],int arete[][2]){
+void affichageGraphique(int n,int m,coord point[],int arete[][2], string name){
   ofstream output;                           
-  output.open("Exemple.ps",ios::out);
+  output.open(name +".ps",ios::out);
   output << "%!PS-Adobe-3.0" << endl;
   output << "%%BoundingBox: 0 0 612 792" << endl;
   output << endl;  
@@ -170,15 +171,79 @@ void dijkstra(int n,vector<int> voisin[],coord point[],int pere[]){
       }
     }
   }
+  for (int i = 0; i < n ; i++){
+    cout << "pere[" << i <<"] = " << pere[i]<< endl;
+  }
 }
 
-void arbre(int n, int pere, int arbre[][2]){
-  for( int i = 0; i < n; i++){
-    if(i != pere[i]){
-      arbre[i][1] = pere[i];
-      arbre[i][0] = i;
+void dijkstra2(int n, vector<int> voisin[], coord point[], int pere[]) {
+  int r = 0;
+  int d[n];
+  bool traite[n];
+  int x;
+
+  for (int i=0; i<n; i++) {
+    d[i] = 100000;
+    pere[i] = -1;
+    traite[i] = 0;
+  }
+  d[r] = 0;
+  pere[r] = r;
+
+  while (existe(n, d, traite, x)) {
+    traite[x] = true;
+    for (int i=0; i<voisin[x].size(); i++) {
+      int y = voisin[x][i];
+      if (traite[y] == 0 && d[y] > d[x] + distanceE(point[x], point[y])) {
+        d[y] = d[x] + distanceE(point[x], point[y]); // x est racourci pour atteindre y
+        pere[y] = x;
+      }
     }
   }
+  for (int i = 0; i < n ; i++){
+    cout << "pere[" << i <<"] = " << pere[i]<< endl;
+  }
+}
+void dijkstra3(int n,vector<int> voisin[],coord point[],int pere[]){
+  int d[n];
+  bool traite[n];
+  for(int k=0;k<n;k++){
+    d[k]=50000; // ou -1;
+    traite[k]=false;
+    pere[k]=-1;
+  }
+  pere[0]=0;
+  d[0]=0;
+  int x;
+  while( existe(n,d,traite,x)){
+    traite[x]=true;
+
+    for( int y =0; y<voisin[x].size(); y++){
+      //cout<<"voisin de x :"<<x<<" nombre: "<<voisin[x].size()<<" valeur voisin: "<<voisin[x][y]<<endl;
+      if(traite[voisin[x][y]] == false && d[voisin[x][y]] >
+					    d[x]+distanceE(point[x], point[voisin[x][y]])){
+	cout<<"test if y : "<<y<<endl;
+
+	d[voisin[x][y]]= d[x]+distanceE(point[x], point[voisin[x][y]]);
+	pere[voisin[x][y]]=x;
+      }
+    } 
+  } 
+}
+int construireArbre(int n,int arbre[][2],int pere[]){
+  int k = 0;
+  for(int i = 0; i < n; i++){
+    arbre[i][0] = i;
+    arbre[i][1] = i;
+  }
+  for( int i = 0; i < n; i++){
+    if(pere[i] != -1)
+      arbre[i][1] = pere[i];
+      arbre[i][0] = i;
+      k++;
+    }
+  return k;
+
 }
 
 int
@@ -201,8 +266,11 @@ main()
   //print_voisins(n, voisin);
   int arete[m][2];
   voisins2arete(n, voisin, arete);
-  //printArrete(m, arete);
-  affichageGraphique(n, m, point, arete);
+  printArrete(m, arete);
+  affichageGraphique(n, m, point, arete, "graphe");
+  dijkstra2(n, voisin, point, pere);
+  int k = construireArbre(n, arbre, pere);
+  affichageGraphique(n, k, point, arbre, "arbre");
 
   return EXIT_SUCCESS;
 }

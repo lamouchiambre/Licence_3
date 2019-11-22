@@ -25,9 +25,9 @@ void composantes(int n, int m, int edge[][2], int comp[]){
     if(comp[x]!=comp[y]){
       aux = comp[x];
       for(int k = 0; k<n; k++){
-	if(comp[k]==aux){
-	  comp[k] = comp[y];
-	}
+      	if(comp[k]==aux){
+	      comp[k] = comp[y];
+	      }
       }
     }
   }
