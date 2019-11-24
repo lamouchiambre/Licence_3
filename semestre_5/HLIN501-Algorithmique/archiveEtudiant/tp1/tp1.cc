@@ -4,7 +4,7 @@
 #include <stack>
 using namespace std;
 
-
+//ex1 création d'un graphe aléatoir G à n sommet et m arêtes
 void grapheRandom(int n, int m, int edge[][2]){
   srand(time(NULL));
   for(int i = 0; i<m ; i++){
@@ -13,6 +13,7 @@ void grapheRandom(int n, int m, int edge[][2]){
   }
 }
 
+//ex2 calcul des composantes connexes
 void composantes(int n, int m, int edge[][2], int comp[]){
   int x, y,aux;
   
@@ -33,6 +34,44 @@ void composantes(int n, int m, int edge[][2], int comp[]){
   }
 }
 
+//ex3 retourner la tailles des composantes connexes
+// -Elle affiche le nombre de point isolés (les composantes de tailles 1)
+// -Les nombre de composantes des autres tailles, dans l'ordre croissant
+void ecritureTailles(int n, int m, int comp[]){
+  int nbeComp[n]={0};
+  for(int i=0; i<n;i++){
+    nbeComp[comp[i]]++;
+  }
+  //nbeComp represente le nombre de point (nbeComp[i]) qui est dans la composant (i)
+  int nbOcc[n]={0};
+  for(int j=0;j<n;j++){
+      if (nbeComp[j]>0){
+	nbOcc[nbeComp[j]]++;
+      }
+  }
+  cout <<endl;
+  for(int k=0;k<n;k++){
+    if (nbOcc[k]>0){
+      cout<<"il y a "<< nbOcc[k] <<" composantes de taille "<< k<<endl;
+    }
+  }
+  // nbOcc represente le nombre de composantes (nbOcc[i]) pour chaque taille (i)
+}
+
+// void afficheNbComp(int n, int tab[]) {
+//   cout << endl;
+//   for (int i = 1; i < n; i++) {
+//     if (i == 0 && tab[i] != 0) {
+//       cout << "Il y a " << tab[0] << " point(s) isole(s)." << endl;
+//     }
+//     if (tab[i] != 0) {
+//       cout << "Il y a " << tab[i] << " composante(s) de taille " << i << "." << endl;     
+//     }
+//   }
+//   cout << endl;
+// }
+
+//exo 4 Optimisation de l'algorithme
 void composantesOpti(int n, int m, int edge[][2], int comp[]) {
     int t[n] = {0}; // taille de comp[x]
     stack<int> L[n]; // liste des sommets de comp[x], gérée par une pile
@@ -55,51 +94,16 @@ void composantesOpti(int n, int m, int edge[][2], int comp[]) {
                 comp[L[aux].top()] = comp[y];
                 L[comp[y]].push(L[aux].top());
                 L[aux].pop();
+                t[aux]--;
             }
         }
     }
+//     cout << endl << "T = ";
+//     for (int i = 0; i < n ; i++){
+//         cout << "[" << i << "|" << t[i] <<"]";
+//     }
+//     cout << endl;
 }
-
-
-
-
-void ecritureTailles(int n, int m, int comp[]){
-  int nbeComp[n]={0};
-  for(int i=0; i<n;i++){
-    nbeComp[comp[i]]++;
-    
-  }
-  cout<<endl<<endl;
-  int nbOcc[n]={0};
-  for(int j=0;j<n;j++){
-    //cout<<nbeComp[j]<<endl;
-      if (nbeComp[j]>0){
-	nbOcc[nbeComp[j]]++;
-      }
-  }
-  cout<<endl<<endl;
-  
-  for(int k=0;k<n;k++){
-    // cout<<nbOcc[k]<<endl;
-    if (nbOcc[k]>0){
-      cout<<"il y a "<< nbOcc[k] <<" composantes de taille "<< k<<endl;
-    }
-  }
-}
-
-void afficheNbComp(int n, int tab[]) {
-  cout << endl;
-  for (int i = 1; i < n; i++) {
-    if (i == 0 && tab[i] != 0) {
-      cout << "Il y a " << tab[0] << " point(s) isole(s)." << endl;
-    }
-    if (tab[i] != 0) {
-      cout << "Il y a " << tab[i] << " composante(s) de taille " << i << "." << endl;     
-    }
-  }
-  cout << endl;
-}
-
 int main()
 { 
   int n;     // Nombre de sommets.	
