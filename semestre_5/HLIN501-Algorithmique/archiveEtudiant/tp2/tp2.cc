@@ -75,6 +75,7 @@ void tri_rapide(int tableau[][3],int longueur)
      tri_rapide_bis(tableau,0,longueur-1);
      }
 
+//affichage
 void printEdge(int m, int edge[][3]) {
     cout << "Edge = " << endl;
   for (int i=0; i<m; i++) {
