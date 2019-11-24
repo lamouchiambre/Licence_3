@@ -7,6 +7,10 @@
 
 using namespace std;
 
+
+//ex1 création d'un graphe aléatoire
+// pas de symetrie, pas de boucle, pas d'arête multiple
+
 bool recherche(vector<int> tab, int elem){
   for(int i =0; i < tab.size();i++){
     if( tab[i] == elem)
@@ -14,7 +18,6 @@ bool recherche(vector<int> tab, int elem){
   }
   return false;
 }
-
 
 void voisinsRandom(int n, int m, vector<int>voisins[]){
   //assert  
@@ -32,7 +35,9 @@ void voisinsRandom(int n, int m, vector<int>voisins[]){
     }
   }
 }
+//affichage du tableau de voisin
 void print_voisins(int n, vector<int> voisins[]) {
+  cout << "tableau de voisin << endl;
   for (int i=0; i < n; i++) {
     cout << "v(" << i << ") = ";
     for (int j=0; j < voisins[i].size(); j++) {
@@ -41,6 +46,8 @@ void print_voisins(int n, vector<int> voisins[]) {
     cout << endl;
   }
 }
+
+//ex2 Parcours en largeur
 void parcoursLargeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]){
   queue<int> AT; int v; int t;
   int dv[n]; int r = 0; 
@@ -62,22 +69,20 @@ void parcoursLargeur(int n, vector<int> voisins[], int niveau[], int ordre[], in
         ordre[x] = t; t +=1;
         pere[x] = v;
         niveau[x] = niveau[v] + 1; 
-      }
-      
+      } 
     }
-    
-  }
-  
-
-  
+  }  
 }
+
+//ex3 Ecriture niveau
 void ecrtureNiveau(int n, int niveau[]){
   int nb[n]; int nbComp0 = 0;
+  //initialisation de nb[n]
   for (size_t i = 0; i < n; i++)
   {
     nb[i]=0;
   }
-  
+  //calcule de nb
   for (size_t i = 0; i < n; i++)
   {
     if(niveau[i] != 1){ nbComp0++;}
@@ -91,34 +96,26 @@ void ecrtureNiveau(int n, int niveau[]){
       cout <<"Il y a "<< nb[i] <<" sommets au niveau " << i <<endl;
     }
   }
-  cout << "il y a " << nbComp0 -1 <<"qui ne son pas dans la composante de 0"<<endl;
-  
+  cout<< "Il y a " << nbComp0 - 1 <<" sommets qui ne sont pas dans la composante de 0"<<endl;  
 }
-void parcoursProfondeur(int n,vector<int> voisins[], int niveau[], int pere[]){
+//ex4 Parcours en profondeur
+void parcoursProfondeur(int n,vector<int> voisins[], int niveau[],int ordre[], int pere[]){
   stack<int> pile;
   
-  //file.empty()
-  //file.push(variable)
-  //file.front() //Recupère le premier
-  //file.pop() supprime le 1ier
-  
-  
   int dejaVu[n]={0};
-  int debut[n]={-1};
+  //ordre={-1};
   int fin[n]={-1};
-  
   
   dejaVu[0]=1;
   niveau[0]=0;
   pile.push(0);
 
-  debut[0]=1;
+  ordre[0]=1;
 
   int t=2;
 
   while(!(pile.empty())){
     int sommetCourant = pile.top();
-   
     if (0==voisins[sommetCourant].size()){
       fin[sommetCourant]=t;
       t++;
@@ -128,20 +125,18 @@ void parcoursProfondeur(int n,vector<int> voisins[], int niveau[], int pere[]){
       int y=voisins[sommetCourant][0];
       voisins[sommetCourant].erase( voisins[sommetCourant].begin());
       if(dejaVu[y]==0){
-    dejaVu[y]=1;
-    pile.push(y);
-    debut[y]=t;
-    t++;
-    pere[y]=sommetCourant;
-    niveau[y]=niveau[pere[y]]+1;
+        dejaVu[y]=1;
+        pile.push(y);
+        ordre[y]=t;
+        t++;
+        pere[y]=sommetCourant;
+        niveau[y]=niveau[pere[y]]+1;
       }
     }
   }
 }
 
-
-int
-main()
+int main()
 {
   int n;                                    // Le nombre de sommets.
   int m;                                    // Le nombre d'aretes.
@@ -152,12 +147,15 @@ main()
   vector<int> voisins[n];                   // Les listes des voisins. 
   voisinsRandom(n, m, voisins);
   print_voisins(n, voisins);
+  
+  //parcours niveau
   int pere[n];                              // L'arbre en largeur.
   int ordre[n];                             // L'ordre de parcours.
   int niveau[n];                            // Le niveau du point.
-  vector<int> copy[n] = voisins;
   parcoursLargeur(n, voisins, niveau, ordre, pere);
-  cout <<"pere ";
+  
+  //affichage
+    cout <<"pere ";
   for (size_t i = 0; i < n; i++)
   {
     cout << pere[i] << ", ";
@@ -178,6 +176,27 @@ main()
   cout << "-------------------------"<<endl;
   ecrtureNiveau(n, niveau);
   cout << "-------------------------"<<endl;
-  //print_voisins(n, copy);
+  
+  parcoursProfondeur(n, voisins, niveau, ordre, pere);
+  
+  //affichage
+  cout <<"pere ";
+  for (size_t i = 0; i < n; i++)
+  {
+    cout << pere[i] << ", ";
+  }
+  cout <<endl;
+
+  cout <<"niveau ";
+  for (size_t i = 0; i < n; i++)
+  {
+    cout << niveau[i] << ", ";
+  }
+  cout <<endl;
+  cout <<"ordre ";
+  for (size_t i = 0; i < n; i++)
+  {
+    cout << ordre[i] << ", ";
+  }
   return EXIT_SUCCESS;
 }
