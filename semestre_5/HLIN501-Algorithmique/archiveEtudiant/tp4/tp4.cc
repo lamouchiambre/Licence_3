@@ -17,7 +17,6 @@ typedef struct coord{int abs; int ord;} coord;
 //bool existe(int n,int dis[],bool traite[],int &x);
 
 //int construireArbre(int n,int arbre[][2],int pere[]);
-
 bool recherche(vector<int> tab, int elem){
   for(int i =0; i < tab.size();i++){
     if( tab[i] == elem)
@@ -33,6 +32,50 @@ bool recherche(int tab[], int n, int elem){
   return false;
 }
 
+void printArrete(int M, int arete[][2]){
+  for(int i = 0; i < M; i++){
+      cout << '[' << arete[i][0] << ", " << arete[i][1] << ']' << endl;
+  }
+}
+
+
+bool existe(int n,int dis[],bool traite[],int &x){
+  bool rep=false;
+  int dmin=-1;
+  for(int i=0;i<n;i++){
+    if(traite[i]==false){
+      rep=true;
+      if(dmin == -1 || dis[i]<dmin){
+    x=i;
+    dmin=dis[i];
+      }
+    }   
+  }
+  return rep;
+}
+
+
+int distanceE(coord a, coord b){
+  return sqrt(pow(a.abs-b.abs,2)+ pow(a.ord-b.ord, 2));
+}
+
+
+
+void voisins2arete(int n,vector<int>voisin[],int arete[][2]){
+  int k = 0;
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < voisin[i].size(); j++){
+      if(i <= voisin[i][j]){
+        arete[k][0] = i; 
+        arete[k][1] = voisin[i][j];
+        k++;
+      }
+    }
+  }
+}
+
+//ex1 Création du graphe
+//
 void pointRandom(int n, coord point[]){
   srand(time(NULL));
   for (size_t i = 0; i < n; i++)
@@ -43,11 +86,7 @@ void pointRandom(int n, coord point[]){
   
 }
 
-int distanceE(coord a, coord b){
-  return sqrt(pow(a.abs-b.abs,2)+ pow(a.ord-b.ord, 2));
-}
-
-
+//construit un tableau de voisin
 void voisins(int n,int dmax,coord point[],vector<int> voisin[],int &m){
   srand(time(NULL));
   int x=0;
@@ -70,7 +109,6 @@ void voisins(int n,int dmax,coord point[],vector<int> voisin[],int &m){
     }
   x++;
   }
-
 }
 void print_voisins(int n, vector<int> voisin[]) {
   for (int i=0; i < n; i++) {
@@ -82,34 +120,7 @@ void print_voisins(int n, vector<int> voisin[]) {
   }
 }
 
-void voisins2arete(int n,vector<int>voisin[],int arete[][2]){
-  int k = 0;
-  for(int i = 0; i < n; i++){
-    for(int j = 0; j < voisin[i].size(); j++){
-      if(i <= voisin[i][j]){
-        arete[k][0] = i; 
-        arete[k][1] = voisin[i][j];
-        k++;
-      }
-    }
-  }
-}
-// void voisins2arete(int n,vector<int>voisins[],int arete[][2]){
-//   int m=0;
-//   for( int i =0; i<n;i++){
-//     for (int j=0; j<voisins[i].size();j++){
-//       arete[m][0]=i;
-//       arete[m][1]=voisins[i][j];
-//       m++;
-//     }
-//   }
-// }
-void printArrete(int M, int arete[][2]){
-  for(int i = 0; i < M; i++){
-      cout << '[' << arete[i][0] << ", " << arete[i][1] << ']' << endl;
-  }
-}
-
+//ex2 Affichage du graphe
 void affichageGraphique(int n,int m,coord point[],int arete[][2], string name){
   ofstream output;                           
   output.open(name +".ps",ios::out);
@@ -137,45 +148,8 @@ void affichageGraphique(int n,int m,coord point[],int arete[][2], string name){
   output << "showpage";
   output << endl;
 }
-bool existe(int n,int dis[],bool traite[],int &x){
-  bool rep=false;
-  int dmin=-1;
-  for(int i=0;i<n;i++){
-    if(traite[i]==false){
-      rep=true;
-      if(dmin == -1 || dis[i]<dmin){
-    x=i;
-    dmin=dis[i];
-      }
-    }   
-  }
-  return rep;
-}
 
-void dijkstra(int n,vector<int> voisin[],coord point[],int pere[]){
-  int dis[n];
-  bool traite[n];
-  int x = 0;
-  for(int k = 0; k < n; k++){
-    dis[k] = -1;
-    traite[k] = false;
-  }
-  pere[0] =  0;
-  dis[0] = 0;
-  while( existe( n, dis, traite, x)){
-    traite[x] = true;
-    for(int y: voisin[x]){
-      if(!(traite[y]) && dis[y] > dis[x] + distanceE(point[y], point[x]) ){
-        dis[y] = dis[x] + distanceE(point[y], point[x]);
-        pere[y] = x;
-      }
-    }
-  }
-  for (int i = 0; i < n ; i++){
-    cout << "pere[" << i <<"] = " << pere[i]<< endl;
-  }
-}
-
+//ex3 Arbre de Dijkstra
 void dijkstra2(int n, vector<int> voisin[], coord point[], int pere[]) {
   int r = 0;
   int d[n];
@@ -230,6 +204,8 @@ void dijkstra3(int n,vector<int> voisin[],coord point[],int pere[]){
     } 
   } 
 }
+
+//ex4 Affichage de l'arbre
 int construireArbre(int n,int arbre[][2],int pere[]){
   int k = 0;
   for(int i = 0; i < n; i++){
@@ -245,6 +221,46 @@ int construireArbre(int n,int arbre[][2],int pere[]){
   return k;
 
 }
+
+
+
+// void voisins2arete(int n,vector<int>voisins[],int arete[][2]){
+//   int m=0;
+//   for( int i =0; i<n;i++){
+//     for (int j=0; j<voisins[i].size();j++){
+//       arete[m][0]=i;
+//       arete[m][1]=voisins[i][j];
+//       m++;
+//     }
+//   }
+// }
+
+
+// void dijkstra(int n,vector<int> voisin[],coord point[],int pere[]){
+//   int dis[n];
+//   bool traite[n];
+//   int x = 0;
+//   for(int k = 0; k < n; k++){
+//     dis[k] = -1;
+//     traite[k] = false;
+//   }
+//   pere[0] =  0;
+//   dis[0] = 0;
+//   while( existe( n, dis, traite, x)){
+//     traite[x] = true;
+//     for(int y: voisin[x]){
+//       if(!(traite[y]) && dis[y] > dis[x] + distanceE(point[y], point[x]) ){
+//         dis[y] = dis[x] + distanceE(point[y], point[x]);
+//         pere[y] = x;
+//       }
+//     }
+//   }
+//   for (int i = 0; i < n ; i++){
+//     cout << "pere[" << i <<"] = " << pere[i]<< endl;
+//   }
+// }
+
+
 
 int
 main()

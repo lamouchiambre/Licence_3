@@ -8,9 +8,9 @@ const int N=5;
 const int M=6;
 const int INF=9999;                      //La valeur infinie.    
 
+// ex2-3 FLoyd-Warshall
 void floydWarshall(int longueur[][N],int dist[][N],int chemin[][N]){
-    for(int i = 0; i < N; i++){
-    
+    for(int i = 0; i < N; i++){   
       for(int j = 0; j < N; j++){
         if (longueur[i][j] != INF){
           dist[i][j] = longueur[i][j];
@@ -72,6 +72,8 @@ void afficheDist(int dist[][M]){
 }
 
 void affichage(int dist[][N],int chemin[][N]);
+
+//ex4 Calcul d'un itineraire
 void itineraire(int i,int j,int chemin[][N]){
   cout << "Entrer le depart "<< i << endl;
   cout << "Entrer la destination " << j << endl;
@@ -87,6 +89,7 @@ void itineraire(int i,int j,int chemin[][N]){
 
 }
 
+//ex5 Fermeture transitive
 void fermetureTransitive(int arc[][M], int fermeture[][M]){
   for(int i = 0; i < M; i++){
       for(int j = 0; j < M; j++){
@@ -104,27 +107,7 @@ void fermetureTransitive(int arc[][M], int fermeture[][M]){
   }
 }
 
-void fermetureTransitive2(int arc[][M], int fermeture[][M]){
-  
-  for(int i=0;i<M;i++){
-    for(int j=0;j<M;j++){
-      if(arc[i][j]==1)
-    fermeture[i][j]=1;
-      else
-    fermeture[i][j]=0;
-    }
-    //fermeture[i][i]=i;
-  }
-      
-  for(int k=0;k<M;k++)
-    for(int i=0;i<M;i++)
-      for(int j=0;j<M;j++)
-    if(fermeture[i][k]+fermeture[k][j]==2){
-      fermeture[i][j]=1;
-    }
-  }
-
-
+//ex6 Composantes fortement connexe
 void compFortConnexe(int n, int fermeture[][M]){
   int comp[M]; int aux;
   for(int i = 0; i < M; i++){
