@@ -86,7 +86,7 @@ void itineraire(int i,int j,int chemin[][N]){
     a = b;
     b = chemin[a][j]; 
   }
-
+  cout << endl;
 }
 
 //ex5 Fermeture transitive
@@ -128,6 +128,28 @@ void compFortConnexe(int n, int fermeture[][M]){
   for(int i = 0; i < M; i++){
     cout << "comp[" << i << "] = " << comp[i] <<endl;
   }
+
+  vector<int> element[M];
+  int nbeComp[M] = {0};
+  for (int i=0; i<M; i++) {
+    nbeComp[comp[i]]++;
+    element[comp[i]].push_back(i);
+  }
+  int compteur = 0;
+  for (int j=0; j<M; j++) {
+    if (nbeComp[j] > 0) {
+      compteur++;
+    }
+    if (element[j].size() > 0) {
+      cout << " {";
+      for (int i=0; i<element[j].size(); i++) {
+        cout << element[j][i] << ",";
+      }
+      cout << "}, ";
+    }
+  }
+  cout << endl << "nombre de composante: " << compteur << endl;
+
 }
 
 int
@@ -157,11 +179,15 @@ main()
   //affichage(dist,chemin);  
   itineraire(4, 2, chemin);
   int fermeture[M][M];
+  cout << "Fermeture Transitive" << endl;
   fermetureTransitive(arc, fermeture);
   afficheDist(fermeture);
-  fermetureTransitive2(arc, fermeture);
-  afficheDist(fermeture);
+  //fermetureTransitive2(arc, fermeture);
+  //afficheDist(fermeture);
+  cout << "comp Fortement connexe" << endl;
   compFortConnexe(6, fermeture);
+
+  
   cout << "fin " << endl;
   
   return EXIT_SUCCESS;

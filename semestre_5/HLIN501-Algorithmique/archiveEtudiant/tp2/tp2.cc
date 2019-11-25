@@ -20,7 +20,7 @@ void pointRandom(int n, coord point[]){
 
 //ex2 création du tableau des distances
 // edge[k][0] = i; edge[k][1] = j; edge[k][2] = distance entre i et j (le carrée de la distance euclidienne; 
-void distance(int n, int m, coord point[], int edge[][3]){
+void distances(int n, int m, coord point[], int edge[][3]){
   int k = 0;
   for (size_t i = 0; i < n; i++)
   {
@@ -261,12 +261,14 @@ main()
   printEdge(m ,edge);
   
   //kruskal
-  kruskal(n, m, edge, arbre);
-  printArbre(n-1, arbre);
+  //kruskal(n, m, edge, arbre);
+  //printArbre(n-1, arbre);
   
   //KruskalOpti
   KruskalOpti(n, m, edge, arbre);
-  printArbre(n-1, arbre);
+  //printArbre(n-1, arbre);
+
+  affichageGraphique(n, point, arbre);
   
   return EXIT_SUCCESS;
 }

@@ -37,7 +37,7 @@ void voisinsRandom(int n, int m, vector<int>voisins[]){
 }
 //affichage du tableau de voisin
 void print_voisins(int n, vector<int> voisins[]) {
-  cout << "tableau de voisin << endl;
+  cout << "tableau de voisin" << endl;
   for (int i=0; i < n; i++) {
     cout << "v(" << i << ") = ";
     for (int j=0; j < voisins[i].size(); j++) {
@@ -99,18 +99,18 @@ void ecrtureNiveau(int n, int niveau[]){
   cout<< "Il y a " << nbComp0 - 1 <<" sommets qui ne sont pas dans la composante de 0"<<endl;  
 }
 //ex4 Parcours en profondeur
-void parcoursProfondeur(int n,vector<int> voisins[], int niveau[],int ordre[], int pere[]){
+void parcoursProfondeur(int n,vector<int> voisins[], int niveau[],int debut[], int fin[], int pere[]){
   stack<int> pile;
   
   int dejaVu[n]={0};
   //ordre={-1};
-  int fin[n]={-1};
+  //int fin[n]={-1};
   
   dejaVu[0]=1;
   niveau[0]=0;
   pile.push(0);
 
-  ordre[0]=1;
+  debut[0]=1;
 
   int t=2;
 
@@ -127,13 +127,20 @@ void parcoursProfondeur(int n,vector<int> voisins[], int niveau[],int ordre[], i
       if(dejaVu[y]==0){
         dejaVu[y]=1;
         pile.push(y);
-        ordre[y]=t;
+        debut[y]=t;
         t++;
         pere[y]=sommetCourant;
         niveau[y]=niveau[pere[y]]+1;
       }
     }
   }
+}
+void print(int tab[], int n){
+  for (size_t i = 0; i < n; i++)
+  {
+    cout << tab[i] << ", ";
+  }
+  cout <<endl;
 }
 
 int main()
@@ -149,54 +156,45 @@ int main()
   print_voisins(n, voisins);
   
   //parcours niveau
-  int pere[n];                              // L'arbre en largeur.
+  int pereP[n];
+  int pereL[n];                              // L'arbre en largeur.
   int ordre[n];                             // L'ordre de parcours.
-  int niveau[n];                            // Le niveau du point.
-  parcoursLargeur(n, voisins, niveau, ordre, pere);
-  
+  int niveau[n];
+  int debut[n];                            // Le niveau du point.
+  int fin[n];
+
+  //initialisation
+  for(int i = 0; i < n; i++){
+    pereP[i] = -1;
+    pereL[i] = -1;
+    ordre[i] = -1;
+    debut[i] = -1;
+    fin[i] = -1;
+    niveau[i] = -1;
+  }
+  cout << "Parcours en Largeur" <<endl;
+  parcoursLargeur(n, voisins, niveau, ordre, pereL);  
   //affichage
-    cout <<"pere ";
-  for (size_t i = 0; i < n; i++)
-  {
-    cout << pere[i] << ", ";
-  }
-  cout <<endl;
-    cout <<"ordre ";
-  for (size_t i = 0; i < n; i++)
-  {
-    cout << ordre[i] << ", ";
-  }
-  cout <<endl;
+  cout <<"pereL ";
+  print(pereL, n);
+  cout <<"ordre ";
+  print(ordre, n);
   cout <<"niveau ";
-  for (size_t i = 0; i < n; i++)
-  {
-    cout << niveau[i] << ", ";
-  }
-  cout <<endl;
+  print(niveau, n);
   cout << "-------------------------"<<endl;
   ecrtureNiveau(n, niveau);
   cout << "-------------------------"<<endl;
   
-  parcoursProfondeur(n, voisins, niveau, ordre, pere);
-  
+  parcoursProfondeur(n, voisins, niveau, debut, fin, pereP);
+  cout << "Parcours en Profondeur" << endl;
   //affichage
-  cout <<"pere ";
-  for (size_t i = 0; i < n; i++)
-  {
-    cout << pere[i] << ", ";
-  }
-  cout <<endl;
-
+  cout <<"pereP ";
+  print(pereP, n);
   cout <<"niveau ";
-  for (size_t i = 0; i < n; i++)
-  {
-    cout << niveau[i] << ", ";
-  }
-  cout <<endl;
-  cout <<"ordre ";
-  for (size_t i = 0; i < n; i++)
-  {
-    cout << ordre[i] << ", ";
-  }
+  print(niveau, n);
+  cout <<"debut ";
+  print(debut, n);
+  cout <<"fin ";
+  print(fin, n);
   return EXIT_SUCCESS;
 }
