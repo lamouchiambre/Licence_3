@@ -1,0 +1,10 @@
+package Introspection;
+
+public class FabriquePersonnage {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

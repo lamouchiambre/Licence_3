@@ -1,0 +1,30 @@
+package Introspection;
+
+public class PersonnageBonus extends Personnage {
+	private Integer seuilPoint;
+	private Integer nbSeuillePoint;
+
+	public Integer getSeuilPoint() {
+		return seuilPoint;
+	}
+
+	public void setSeuilPoint(Integer seuilPoint) {
+		this.seuilPoint = seuilPoint;
+	}
+
+	@Override
+	public void addPointVie(Integer p) {
+		// TODO Auto-generated method stub
+		if(this.getNombrePoint() >= this.seuilPoint*this.nbSeuillePoint){
+			this.nbSeuillePoint++;
+			super.addPointVie(p);
+		}
+		
+	}
+
+
+
+
+	
+	
+}

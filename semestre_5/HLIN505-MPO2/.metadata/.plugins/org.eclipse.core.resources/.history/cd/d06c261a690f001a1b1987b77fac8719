@@ -1,0 +1,20 @@
+package Introspection;
+
+public class Objet1 {
+	public String name;
+	public Integer code;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getCode() {
+		return code;
+	}
+	public void setCode(Integer code) {
+		this.code = code;
+	}
+	
+}

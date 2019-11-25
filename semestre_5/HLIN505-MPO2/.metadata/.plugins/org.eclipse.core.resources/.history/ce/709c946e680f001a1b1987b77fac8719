@@ -1,0 +1,7 @@
+package Introspection;
+
+public class Objet1 {
+	public String name;
+	public Integer code;
+	
+}

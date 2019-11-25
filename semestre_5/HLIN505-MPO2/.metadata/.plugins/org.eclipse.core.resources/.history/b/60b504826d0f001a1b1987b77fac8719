@@ -1,0 +1,17 @@
+package Introspection;
+
+import java.lang.reflect;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClasseMystere {
+	private ArrayList list;
+	
+	public List<Method> getMethode(int i){
+		
+	}
+	
+
+	
+	
+}
