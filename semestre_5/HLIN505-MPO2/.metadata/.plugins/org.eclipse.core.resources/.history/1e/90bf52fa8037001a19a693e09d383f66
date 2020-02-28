@@ -1,0 +1,15 @@
+package un;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test<T> {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		List<A> l1 = new ArrayList<A>();
+		B b1 = new B();
+		l1.add(new A());
+	}
+
+}

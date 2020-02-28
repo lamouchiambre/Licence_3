@@ -1,0 +1,28 @@
+package un;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test<T extends I> {
+	public void ajouter(List<T> l, T a){
+		l.add(a);
+	} 
+	public Object blabla(int a){
+		return null;
+	}
+//	public void deplaceEvts(EvenementG <? extends Activite> c){
+//		  this.listeActivites.addAll(c.getListeActivites());
+//	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		List<? extends A> l1 = new ArrayList<A>();
+		List<? super A> l2 = new ArrayList<Object>();
+		Test t = new Test();
+		A a1 = new A();
+		B b1 = new B();
+		t.ajouter(l1,new A());
+		System.out.println(l1.size());
+	}
+
+}

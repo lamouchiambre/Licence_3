@@ -1,9 +1,0 @@
-package Introspection;
-
-import java.util.ArrayList;
-
-public class ClasseMystere {
-	public ArrayList<Objet1> list;
-	public String nom;
-	
-}

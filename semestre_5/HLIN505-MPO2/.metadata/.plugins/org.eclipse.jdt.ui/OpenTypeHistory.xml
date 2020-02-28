@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=Introspection/src&lt;Introspection{Personnage.java[Personnage" modifiers="1025" timestamp="1574679657000"/>
+<typeInfo handle="=Introspection/src&lt;Introspection{Personnage.java[Personnage" modifiers="1025" timestamp="1574680966000"/>
+<typeInfo handle="=TPG/src&lt;tpg{IPile.java[IPile" modifiers="513" timestamp="1579079650000"/>
+<typeInfo handle="=Test/src&lt;un{B.java[B" modifiers="1" timestamp="1579082968000"/>
+<typeInfo handle="=Test/src&lt;un{A.java[A" modifiers="1" timestamp="1579082953000"/>
 </typeInfoHistroy>

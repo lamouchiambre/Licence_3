@@ -1,5 +1,0 @@
-package Introspection;
-
-public class PersonnageBonus extends Personnage {
-
-}
