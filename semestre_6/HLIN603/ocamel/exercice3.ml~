@@ -1,0 +1,7 @@
+class cte (n : 'a) =
+object
+  val valeur = n
+  method get = valeur
+end;;
+
+        

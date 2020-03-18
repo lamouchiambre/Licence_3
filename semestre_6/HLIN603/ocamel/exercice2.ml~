@@ -1,0 +1,11 @@
+class account b =
+object (self)
+  val mutable balance = 0.0
+  method get = balance
+  method deposit a = balba,ce <- balance +. a
+  method withdraw a = balance <- balance -. a
+  method print = print_float balance; print_newline ()
+  initializer self#deposit b
+end;;
+
+                 
