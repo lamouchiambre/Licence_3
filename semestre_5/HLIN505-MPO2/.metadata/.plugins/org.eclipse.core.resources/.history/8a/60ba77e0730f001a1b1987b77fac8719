@@ -1,5 +1,0 @@
-package Introspection;
-
-public class PersonageInvisible extends Personnage {
-
-}

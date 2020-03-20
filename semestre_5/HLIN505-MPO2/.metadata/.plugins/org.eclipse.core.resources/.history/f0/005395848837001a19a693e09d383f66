@@ -1,0 +1,21 @@
+package un;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test<T> {
+	public void ajouter(List<T> l, T a){
+		l.add(a);
+	} 
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		List<? extends A> l1 = new ArrayList<A>();
+		Test t = new Test();
+		A a1 = new A();
+		B b1 = new B();
+		t.ajouter(l1,new A());
+		System.out.println(l1.size());
+	}
+
+}
