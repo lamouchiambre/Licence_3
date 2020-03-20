@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
   /* Etape 6 : répondre au client en lui envoyant le nombre d'octets
      effectivement reçus à l'étape 5. Pour cet exercice, faire un seul
      appel de la fonction send.*/ 
-  int snd = send(dsCv, &rcv,sizeof(int), 0);
+  int snd = send(dsCv, &rcv, sizeof(int), 0);
   
   /* Traiter TOUTES les valeurs de retour (voir le cours ou la documentation). */
 
