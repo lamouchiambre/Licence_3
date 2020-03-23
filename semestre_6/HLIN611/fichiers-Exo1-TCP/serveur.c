@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
   /* attendre un message dont la taille maximale est 500 octets. Pour
      cet exercice, il est demandé de ne faire qu'un seul appel à recv
      pour recevoir un message. */
-  int rcv = recv (dsCv, buffer, sizeof(buffer), 0) ;
+  int rcv = recv (dsCv, buffer, sizeof(buffer), 0) ; /*on peut mettre 500*/
 
   /* Traiter TOUTES les valeurs de retour (voir le cours ou la documentation). */
   if (rcv <= 0){

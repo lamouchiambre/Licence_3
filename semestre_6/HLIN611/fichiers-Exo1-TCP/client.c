@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
      serveur s'attends à recevoir une chaine de caractères y compris le
      caractère de fin */
   
-  int snd = send(ds, m, sizeof(m), 0);
+  int snd = send(ds, m, strlen(m)+1, 0);
   /* Traiter TOUTES les valeurs de retour (voir le cours ou la documentation). */
   if(snd==-1){
     perror("erreur");
@@ -115,8 +115,8 @@ int main(int argc, char *argv[]) {
     
     printf("Client : envoi fait, j'attends la reponse du serveur \n");
     
-    int reponse;
-    int* rcv = recv (ds, reponse, sizeof(reponse), 0) ;
+    int reponse[200];
+    int rcv = recv (ds, reponse, sizeof(reponse), 0) ;
     /* Traiter TOUTES les valeurs de retour (voir le cours ou la documentation). */
     if (rcv <= 0){
 	perror ("Erreur");
@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
     /* Etape 6 : je compare le nombre d'octets déposés (envoyés) avec
        la valeur reçue. L'objectif est d'avoir la même valeur. */
     
-    printf("Client : j'ai envoyé %d octets et le serveur me répond qu'il a reçu : %d octets \n",snd ,rcv[0]) ;
+    printf("Client : j'ai envoyé %d octets et le serveur me répond qu'il a reçu : %d octets \n",snd ,rcv) ;
     
     
     /* Etape 7 : je termine proprement. */
