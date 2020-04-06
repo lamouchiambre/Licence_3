@@ -30,9 +30,9 @@ int recvTCP(int socket, char *buffer, size_t length, unsigned int *nbBytesReceve
   // ce squelette est juste pour vous indiquer où et comment utiliser
   // les paramètres en plus. C'est à vous de savoir comment l'adapter à vote code.
 	...
-    while (....){
+    while (socket != -1){
   
-      received = recv(.....);
+      received = recv(socket, buffer, );
 
       if(received <= 0){
         return received;
@@ -58,22 +58,26 @@ int main(int argc, char *argv[])
   
   /*  Création de la socket d'écoute, nomage et mise en écoute.*/
  
-  int ds = socket(...);
+  int ds = socket(PF_NET, SOCK_STREAM, 0);
 
+  struct sockaddr_in server;
+  server.sin_family = AF_INET;
+  server.sin_addr.s_addr = INADDR_ANY;
+  server.sin_port = htons(atoi(argv[1]));
 
-  ...
+  bind(ds, (struct sockaddr*) &server, sizeof(server));
 
+  listen(ds, 7);
+
+  struct sockaddr_in aC;
+  socklen_t lg = sizeof(struct sockaddr_in );
 
   // Penser à tester votre code progressivement.
 
   // Rappel un seul client est à traiter.
   printf("Serveur : j'attends la demande du client (accept) \n"); 
-  
-  ...
 
-  int dsCv = accept(ds,...);
-
-  ...
+  int dsCv = accept(dS, (struct sockaddr *) &aC, &lg);
  
   printf("Serveur: le client %s:%d est connecté  \n", ...);
 
