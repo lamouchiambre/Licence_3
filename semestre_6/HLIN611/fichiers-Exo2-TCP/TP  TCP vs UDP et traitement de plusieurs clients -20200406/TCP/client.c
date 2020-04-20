@@ -93,15 +93,8 @@ int main(int argc, char *argv[]) {
   for(int i = 1; i <= atoi(argv[3]); i++){
     message = i; // pour passer d'un int à long int (de 4 à 8 octets). Vous pouvez faire autrement.
     
-    int snd = sendTCP(ds, (char *) &message,sizeof(long int),&nbTotalOctetsEnvoyes, &nbAppelSend);
-    
-    if (snd == -1) {
-      perror("Client : error [sendTCP] \n");
-      exit(1);
-    } else if (snd == 0) {
-      printf("Client : arrêt normal \n");
-    }
-    
+    int snd = sendTCP(ds, (char *) &message, atoi(argv[3]),&nbTotalOctetsEnvoyes, &nbAppelSend);
+
     printf("Client : j'ai envoyé au total %d octets avec %d appels à send \n", nbTotalOctetsEnvoyes,  nbAppelSend) ;
     
   }

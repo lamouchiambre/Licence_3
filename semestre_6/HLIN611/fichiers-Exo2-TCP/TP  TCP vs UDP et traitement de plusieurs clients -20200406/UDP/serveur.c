@@ -30,9 +30,12 @@ int main(int argc, char *argv[])
   
   /* Créer une socket */
  
-  int ds = socket(...);
+  int ds = socket(PF_INET, SOCK_STREAM,0);
   
-  ...
+  if(ds  < 0){
+    printf("erreur de la creation de la socket");
+    exit(0);
+  }
   printf("Serveur: creation de la socket : ok\n");
 
 
@@ -40,9 +43,13 @@ int main(int argc, char *argv[])
 
   // nommage
  
-  ...
+  struct sockaddr_in adrC;
   
- 
+  adrC.sin_family = AF_INET;
+  adrC.sin_port = htons(atoi(argv[1]));
+  ardC.sin_addr.s_addr = INADDR_ANY;
+  
+  if(bind(ds, (struct addr*)
   printf("Serveur: nommage : ok\n");
 
   // Je peux tester l'exécution de cette étape avant de passer à la suite.

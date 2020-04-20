@@ -29,16 +29,14 @@ int recvTCP(int socket, char *buffer, size_t length, unsigned int *nbBytesReceve
 
   // ce squelette est juste pour vous indiquer où et comment utiliser
   // les paramètres en plus. C'est à vous de savoir comment l'adapter à vote code.
-	...
+      
     while (socket != -1){
-  
+ 
       received = recv(socket, buffer, );
 
       if(received <= 0){
         return received;
       }
-      
-      ....
 	
       (*nbBytesReceved)+=received;
       (*nbCallRecv)++;
@@ -117,7 +115,6 @@ int main(int argc, char *argv[])
       rcv = recvTCP (dsCv, (char*)(messagesRecus+1) , sizeof(long int), &nbTotalOctetsRecus, &nbAppelRecv);  
 
     /* Traiter TOUTES les valeurs de retour (voir le cours ou la documentation). */
-   ...
 
     if(messagesRecus[1] < messagesRecus[0]) // si la valeur reçue est inférieure à la précédente, alors désordre.
       printf("Serveur : reception dans le désordre : %ld reçu après %ld \n", messagesRecus[1], messagesRecus[0]);
@@ -130,7 +127,7 @@ int main(int argc, char *argv[])
   }
   
     // terminer proprement votre programme
-    ...
+ 
   printf("Serveur : fin du dialogue avec le client\n");
   
 
